@@ -32,14 +32,21 @@ def select_field_of_work():
         field = int(input())
     return field
 
-params = {
-    'get': '',
-    'for': 'state:*',
-    'key': '65574da907a7e319b5fabb998098789b74e2092a'
-}
-data = requests.get("http://api.census.gov/data/2015/acs1", params=params)
-hh_size = []
-income = []
-for row in data.json()[1:]:
-    income.append(float(row[1]))
-    hh_size.append(float(row[2]))
+def average_salary():
+	occupation = #getmethod#
+	state_num = #getmethod#
+	
+	census_variables = ['NAME', occupation]
+	state = 'state:{}'.format(state_num)
+
+	params = {
+		'get': ','.join(census_variables),
+		'for': state,
+		'key': '65574da907a7e319b5fabb998098789b74e2092a'
+	}
+	
+	data = requests.get("http://api.census.gov/data/2015/acs1", params=params)
+	income = []
+	for row in data.json()[1:]:
+		income.append(float(row[1]))
+	print(income)
