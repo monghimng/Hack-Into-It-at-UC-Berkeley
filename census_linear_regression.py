@@ -5,7 +5,7 @@ from pylab import plot,show
 
 import requests
                               # income     # household size
-census_variables = ['NAME', 'B01001_001E', 'B25010_001E']
+census_variables = ['NAME', 'B24021_032E', 'B25010_001E']
 
 params = {
     'get': ','.join(census_variables),
@@ -25,4 +25,3 @@ w = linalg.lstsq(A.T,y)[0]
 line = w[0]*xi+w[1]
 plot(xi, line,'r-',xi,y,'o')
 show()
-
