@@ -1,5 +1,6 @@
 import requests
 import csv
+
 def is_valid_state_num(num):
     lst = [3, 7, 43]
     return type(num)==type(5) and num not in lst and (num > 0 and num < 57 or num == 72)
@@ -19,6 +20,7 @@ def select_state():
     while not is_valid_state_num(workplace):
         workplace = int(input('Not a valid state input. Please try again.'))
     print('-----------')
+	return workplace
 
 def select_field_of_work():
     f = open('B24021.csv', 'r')
@@ -31,10 +33,10 @@ def select_field_of_work():
         print('Not a valid Field of work. Please try again.')
         field = int(input())
     return field
-
-def average_salary():
-	occupation = #getmethod#
-	state_num = #getmethod#
+	
+def return_average_salary():
+	occupation = select_field_of_work()
+	state_num = select_state()
 	
 	census_variables = ['NAME', occupation]
 	state = 'state:{}'.format(state_num)
@@ -50,3 +52,4 @@ def average_salary():
 	for row in data.json()[1:]:
 		income.append(float(row[1]))
 	print(income)
+return_average_salary()
