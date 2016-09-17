@@ -59,12 +59,25 @@ def return_average_salary():
     state_num = select_state()
 
     params = {
-        'get': 'B24021_0{:02d}E'.format(occupation),
+        'get': 'NAME,B24021_0{:02d}E'.format(occupation),
         'for': 'state:'+str(state_num),
         'key': '65574da907a7e319b5fabb998098789b74e2092a'
     }
 
     data = requests.get("http://api.census.gov/data/2015/acs1", params=params)
-    return data.json()[1:][0][0]
-result = 'Your expected salary is ${}'.format(return_average_salary())
+    return data.json()[1][0], data.json()[1][1]
+state, salary = return_average_salary()
+result = 'Your expected salary is ${} at {}'.format(salary, state)
 print(result)
+with open('crimerate.txt') as f:
+    content = f.readlines()
+    for line in content:
+        if state in line:
+            crime_rate = float(content[0].split('\t')[2].split('\n')[0])
+            print("By the way, Your state's crime rate is",crime_rate, 'Rate per 100K population')
+            if crime_rate < 326.5:
+                print("It's higher than the median crime rate of all the states.")
+            elif crime_rate > 326.5:
+                print("It's lower than the median crime rate of all the states.")
+            else:
+                print("Fun fact: your's state has a crime rate that is the median of the crime rate of all the states.")
